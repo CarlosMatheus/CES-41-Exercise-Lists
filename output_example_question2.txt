@@ -1,0 +1,22 @@
+|--------------------------------------------------|--------------------------------------------------|------------------------------|--------------------|
+|                      Pilha                       |                     Entrada                      |             Ação             |      Produção      |
+|--------------------------------------------------|--------------------------------------------------|------------------------------|--------------------|
+|$ E                                               |id + id * id $                                    |Expandir                      |E -> TE'            |
+|$ E' T                                            |id + id * id $                                    |Expandir                      |T -> FT'            |
+|$ E' T' F                                         |id + id * id $                                    |Expandir                      |F -> id             |
+|$ E' T' id                                        |id + id * id $                                    |Dempilhar, avançar            |                    |
+|$ E' T'                                           |+ id * id $                                       |Expandir                      |T' -> ε             |
+|$ E'                                              |+ id * id $                                       |Expandir                      |E' -> +TE'          |
+|$ E' T +                                          |+ id * id $                                       |Dempilhar, avançar            |                    |
+|$ E' T                                            |id * id $                                         |Expandir                      |T -> FT'            |
+|$ E' T' F                                         |id * id $                                         |Expandir                      |F -> id             |
+|$ E' T' id                                        |id * id $                                         |Dempilhar, avançar            |                    |
+|$ E' T'                                           |* id $                                            |Expandir                      |T' -> *FT'          |
+|$ E' T' F *                                       |* id $                                            |Dempilhar, avançar            |                    |
+|$ E' T' F                                         |id $                                              |Expandir                      |F -> id             |
+|$ E' T' id                                        |id $                                              |Dempilhar, avançar            |                    |
+|$ E' T'                                           |$                                                 |Expandir                      |T' -> ε             |
+|$ E'                                              |$                                                 |Expandir                      |E' -> ε             |
+|$                                                 |$                                                 |Dempilhar, avançar            |                    |
+|                                                  |                                                  |Encerrar com sucesso          |                    |
+|--------------------------------------------------|--------------------------------------------------|------------------------------|--------------------|

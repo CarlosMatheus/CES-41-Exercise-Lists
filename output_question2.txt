@@ -1,0 +1,64 @@
+|--------------------------------------------------|--------------------------------------------------|------------------------------|--------------------|
+|                      Pilha                       |                     Entrada                      |             Ação             |      Produção      |
+|--------------------------------------------------|--------------------------------------------------|------------------------------|--------------------|
+|$ E                                               |id * ( ( id + id ) * ( id * ( id + id ) ) ) $     |Expandir                      |E -> TE'            |
+|$ E' T                                            |id * ( ( id + id ) * ( id * ( id + id ) ) ) $     |Expandir                      |T -> FT'            |
+|$ E' T' F                                         |id * ( ( id + id ) * ( id * ( id + id ) ) ) $     |Expandir                      |F -> id             |
+|$ E' T' id                                        |id * ( ( id + id ) * ( id * ( id + id ) ) ) $     |Dempilhar, avançar            |                    |
+|$ E' T'                                           |* ( ( id + id ) * ( id * ( id + id ) ) ) $        |Expandir                      |T' -> *FT'          |
+|$ E' T' F *                                       |* ( ( id + id ) * ( id * ( id + id ) ) ) $        |Dempilhar, avançar            |                    |
+|$ E' T' F                                         |( ( id + id ) * ( id * ( id + id ) ) ) $          |Expandir                      |F -> (E)            |
+|$ E' T' ) E (                                     |( ( id + id ) * ( id * ( id + id ) ) ) $          |Dempilhar, avançar            |                    |
+|$ E' T' ) E                                       |( id + id ) * ( id * ( id + id ) ) ) $            |Expandir                      |E -> TE'            |
+|$ E' T' ) E' T                                    |( id + id ) * ( id * ( id + id ) ) ) $            |Expandir                      |T -> FT'            |
+|$ E' T' ) E' T' F                                 |( id + id ) * ( id * ( id + id ) ) ) $            |Expandir                      |F -> (E)            |
+|$ E' T' ) E' T' ) E (                             |( id + id ) * ( id * ( id + id ) ) ) $            |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E                               |id + id ) * ( id * ( id + id ) ) ) $              |Expandir                      |E -> TE'            |
+|$ E' T' ) E' T' ) E' T                            |id + id ) * ( id * ( id + id ) ) ) $              |Expandir                      |T -> FT'            |
+|$ E' T' ) E' T' ) E' T' F                         |id + id ) * ( id * ( id + id ) ) ) $              |Expandir                      |F -> id             |
+|$ E' T' ) E' T' ) E' T' id                        |id + id ) * ( id * ( id + id ) ) ) $              |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T'                           |+ id ) * ( id * ( id + id ) ) ) $                 |Expandir                      |T' -> ε             |
+|$ E' T' ) E' T' ) E'                              |+ id ) * ( id * ( id + id ) ) ) $                 |Expandir                      |E' -> +TE'          |
+|$ E' T' ) E' T' ) E' T +                          |+ id ) * ( id * ( id + id ) ) ) $                 |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T                            |id ) * ( id * ( id + id ) ) ) $                   |Expandir                      |T -> FT'            |
+|$ E' T' ) E' T' ) E' T' F                         |id ) * ( id * ( id + id ) ) ) $                   |Expandir                      |F -> id             |
+|$ E' T' ) E' T' ) E' T' id                        |id ) * ( id * ( id + id ) ) ) $                   |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T'                           |) * ( id * ( id + id ) ) ) $                      |Expandir                      |T' -> ε             |
+|$ E' T' ) E' T' ) E'                              |) * ( id * ( id + id ) ) ) $                      |Expandir                      |E' -> ε             |
+|$ E' T' ) E' T' )                                 |) * ( id * ( id + id ) ) ) $                      |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T'                                   |* ( id * ( id + id ) ) ) $                        |Expandir                      |T' -> *FT'          |
+|$ E' T' ) E' T' F *                               |* ( id * ( id + id ) ) ) $                        |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' F                                 |( id * ( id + id ) ) ) $                          |Expandir                      |F -> (E)            |
+|$ E' T' ) E' T' ) E (                             |( id * ( id + id ) ) ) $                          |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E                               |id * ( id + id ) ) ) $                            |Expandir                      |E -> TE'            |
+|$ E' T' ) E' T' ) E' T                            |id * ( id + id ) ) ) $                            |Expandir                      |T -> FT'            |
+|$ E' T' ) E' T' ) E' T' F                         |id * ( id + id ) ) ) $                            |Expandir                      |F -> id             |
+|$ E' T' ) E' T' ) E' T' id                        |id * ( id + id ) ) ) $                            |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T'                           |* ( id + id ) ) ) $                               |Expandir                      |T' -> *FT'          |
+|$ E' T' ) E' T' ) E' T' F *                       |* ( id + id ) ) ) $                               |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T' F                         |( id + id ) ) ) $                                 |Expandir                      |F -> (E)            |
+|$ E' T' ) E' T' ) E' T' ) E (                     |( id + id ) ) ) $                                 |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T' ) E                       |id + id ) ) ) $                                   |Expandir                      |E -> TE'            |
+|$ E' T' ) E' T' ) E' T' ) E' T                    |id + id ) ) ) $                                   |Expandir                      |T -> FT'            |
+|$ E' T' ) E' T' ) E' T' ) E' T' F                 |id + id ) ) ) $                                   |Expandir                      |F -> id             |
+|$ E' T' ) E' T' ) E' T' ) E' T' id                |id + id ) ) ) $                                   |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T' ) E' T'                   |+ id ) ) ) $                                      |Expandir                      |T' -> ε             |
+|$ E' T' ) E' T' ) E' T' ) E'                      |+ id ) ) ) $                                      |Expandir                      |E' -> +TE'          |
+|$ E' T' ) E' T' ) E' T' ) E' T +                  |+ id ) ) ) $                                      |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T' ) E' T                    |id ) ) ) $                                        |Expandir                      |T -> FT'            |
+|$ E' T' ) E' T' ) E' T' ) E' T' F                 |id ) ) ) $                                        |Expandir                      |F -> id             |
+|$ E' T' ) E' T' ) E' T' ) E' T' id                |id ) ) ) $                                        |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T' ) E' T'                   |) ) ) $                                           |Expandir                      |T' -> ε             |
+|$ E' T' ) E' T' ) E' T' ) E'                      |) ) ) $                                           |Expandir                      |E' -> ε             |
+|$ E' T' ) E' T' ) E' T' )                         |) ) ) $                                           |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T' ) E' T'                           |) ) $                                             |Expandir                      |T' -> ε             |
+|$ E' T' ) E' T' ) E'                              |) ) $                                             |Expandir                      |E' -> ε             |
+|$ E' T' ) E' T' )                                 |) ) $                                             |Dempilhar, avançar            |                    |
+|$ E' T' ) E' T'                                   |) $                                               |Expandir                      |T' -> ε             |
+|$ E' T' ) E'                                      |) $                                               |Expandir                      |E' -> ε             |
+|$ E' T' )                                         |) $                                               |Dempilhar, avançar            |                    |
+|$ E' T'                                           |$                                                 |Expandir                      |T' -> ε             |
+|$ E'                                              |$                                                 |Expandir                      |E' -> ε             |
+|$                                                 |$                                                 |Dempilhar, avançar            |                    |
+|                                                  |                                                  |Encerrar com sucesso          |                    |
+|--------------------------------------------------|--------------------------------------------------|------------------------------|--------------------|

@@ -1,4 +1,4 @@
 from code import Analyser
 
 analyser = Analyser()
-analyser.analyse(['id', '+', 'id', '*', 'id', '$'])
+analyser.analyse(['id', '*', '(', '(', 'id', '+', 'id', ')', '*', '(', 'id', '*', '(', 'id', '+', 'id', ')', ')', ')', '$'])
