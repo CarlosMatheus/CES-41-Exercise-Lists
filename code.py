@@ -1,6 +1,7 @@
 END_ATOM = '$'
 Expand_action = 'Expandir'
 unstack_action = 'Dempilhar, avançar'
+success_action = 'Encerrar com sucesso'
 epsilon = 'ε'
 
 
@@ -26,7 +27,9 @@ class Analyser:
         self.stack.push(self.end_atom)
         self.stack.push(self.non_terminals[0])
 
-        while self.stack:
+        self.__print_title()
+
+        while not self.stack.is_empty():
             actual_production = self.stack.top()
             actual_char = self.__get_actual_char()
             initial_stack = self.stack.copy()
@@ -39,12 +42,16 @@ class Analyser:
 
                 next_productions = self.table[actual_production + actual_char]
 
-                if next_productions is None:
+                if not next_productions:
                     print("Compilation Error")
+                    print(actual_production)
+                    print(actual_char)
+                    print(self.stack.s)
                     return
 
                 for production in next_productions[::-1]:
-                    self.stack.push(production)
+                    if production != epsilon:
+                        self.stack.push(production)
             else:
                 actual_actions = unstack_action
                 next_productions = None
@@ -52,6 +59,8 @@ class Analyser:
                 self.stack.pop()
 
             self.__print_current_action(initial_stack, initial_entry, actual_actions, actual_production, next_productions)
+
+        self.__print_success_finish()
 
     def __get_entry_state(self):
         return self.entry[self.actual_char_idx:]
@@ -66,7 +75,8 @@ class Analyser:
         return self.entry[self.actual_char_idx]
 
     def __next_char(self):
-        self.actual_char_idx += 1
+        if self.actual_char_idx < len(self.entry) -1:
+            self.actual_char_idx += 1
         return self.entry[self.actual_char_idx]
 
     def __reset_entry(self, entry=[END_ATOM]):
@@ -83,7 +93,7 @@ class Analyser:
         self.table[self.non_terminals[4] + self.atoms[0]] = ['id']
 
         self.table[self.non_terminals[0] + self.atoms[1]] = []
-        self.table[self.non_terminals[1] + self.atoms[1]] = ['T', "E'"]
+        self.table[self.non_terminals[1] + self.atoms[1]] = ['+', 'T', "E'"]
         self.table[self.non_terminals[2] + self.atoms[1]] = []
         self.table[self.non_terminals[3] + self.atoms[1]] = [epsilon]
         self.table[self.non_terminals[4] + self.atoms[1]] = []
@@ -122,6 +132,16 @@ class Analyser:
         string = '|{:30}|{:30}|{:30}|{:30}|'.format(' '.join(stack), ' '.join(entry), action, prod)
         print(string)
 
+    def __print_success_finish(self):
+        action = success_action
+        string = '|{:30}|{:30}|{:30}|{:30}|'.format('', '', action, '')
+        print(string)
+        print('|{:30}|{:30}|{:30}|{:30}|'.format('-' * 30, '-' * 30, '-' * 30, '-' * 30))
+
+    def __print_title(self):
+        print('|{:30}|{:30}|{:30}|{:30}|'.format('-'*30, '-'*30, '-'*30, '-'*30))
+        print('|{:^30}|{:^30}|{:^30}|{:^30}|'.format('Pilha', 'Entrada', 'Ação', 'Produção'))
+        print('|{:30}|{:30}|{:30}|{:30}|'.format('-'*30, '-'*30, '-'*30, '-'*30))
 
 class Stack:
     """
@@ -141,3 +161,6 @@ class Stack:
 
     def copy(self):
         return self.s.copy()
+
+    def is_empty(self):
+        return len(self.s) == 0
