@@ -9,11 +9,35 @@ class ProductionTable:
         self.productions = productions
         self.first = dict()
         self.second = dict()
+        self.table = dict()
 
     def build_production_table(self, ):
         self.__reset_variables()
         self.get_first()
         self.get_second()
+        self.build_table()
+        return self.table
+
+    # def print_table(self):
+    #     for
+
+    def build_table(self):
+        for prod in self.productions:
+            product = prod[1]
+            original_elm = prod[0]
+            productions = self.split(product, vertical_bar)
+            for production in productions:
+                alpha = production[0]
+                a = original_elm
+                first_alpha = self.first[alpha]
+                first_a = self.first[a]
+                second_a = self.second[a]
+                for elm_atom in first_alpha:
+                    if elm_atom != epsilon:
+                        self.table[a + elm_atom] = (a, production)
+                    if alpha == epsilon:
+                        for sec_elm_atom in second_a:
+                            self.table[a + sec_elm_atom] = (a, production)
 
     def get_second(self):
         if not self.first: raise Exception('You need to call get_fist before call get_second')
@@ -105,6 +129,7 @@ class ProductionTable:
     def __reset_variables(self):
         self.first = dict()
         self.second = dict()
+        self.table = dict()
 
     def copy_first_or_second(self, dictionary):
         copy = dict()
