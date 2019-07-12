@@ -14,5 +14,5 @@ productions = [
 
 production_table = ProductionTable(terminals, non_terminals, productions)
 
-production_table.get_first()
+print(production_table.get_first())
 print(production_table.get_second())

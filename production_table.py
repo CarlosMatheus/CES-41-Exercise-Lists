@@ -17,12 +17,12 @@ class ProductionTable:
 
     def get_second(self):
         if not self.first: raise Exception('You need to call get_fist before call get_second')
-        self.trivial_initialization()
-        self.non_trivial_initialization()
-        # self.rotary_convergent_process_second()
+        self.trivial_initialization_second()
+        self.non_trivial_initialization_second()
+        self.rotary_convergent_process_second()
         return self.second
 
-    def trivial_initialization(self):
+    def trivial_initialization_second(self):
         if not self.non_terminals: raise Exception('Non terminals empty')
         initial_symbol = self.non_terminals[0]
         self.second[initial_symbol] = [END_ATOM]
@@ -30,7 +30,7 @@ class ProductionTable:
             if non_terminal != initial_symbol:
                 self.second[non_terminal] = []
 
-    def non_trivial_initialization(self):
+    def non_trivial_initialization_second(self):
         for prod in self.productions:
             product = prod[1]
             products = self.split(product, vertical_bar)
@@ -43,6 +43,25 @@ class ProductionTable:
                         for first in self.first[next_elm]:
                             if first != epsilon and first not in self.second[elm]:
                                 self.second[elm].append(first)
+
+    def rotary_convergent_process_second(self):
+        while True:
+            initial_second = self.copy_first_or_second(self.second)
+            for prod in self.productions:
+                origin_elm = prod[0]
+                product = prod[1]
+                products = self.split(product, vertical_bar)
+                for product in products:
+                    last_elm = product[-1]
+                    if last_elm != epsilon:
+                        if epsilon in self.first[last_elm]:
+                            for elm in product:
+                                if elm in self.non_terminals:
+                                    for next in self.second[origin_elm]:
+                                        if next not in self.second[elm]:
+                                            self.second[elm].append(next)
+            if self.equals(initial_second, self.second):
+                break
 
     def get_first(self):
         self.initialize_fist()
@@ -61,7 +80,7 @@ class ProductionTable:
 
     def rotary_convergent_process_first(self):
         while True:
-            initial_first = self.copy_first()
+            initial_first = self.copy_first_or_second(self.first)
             for prod in self.productions:
                 if prod[1]:
                     sub_prods = self.split(prod[1], vertical_bar)
@@ -87,12 +106,12 @@ class ProductionTable:
         self.first = dict()
         self.second = dict()
 
-    def copy_first(self):
-        first_copy = dict()
-        for key in self.first.keys():
-            lt = self.first[key]
-            first_copy[key] = lt.copy()
-        return first_copy
+    def copy_first_or_second(self, dictionary):
+        copy = dict()
+        for key in dictionary.keys():
+            lt = dictionary[key]
+            copy[key] = lt.copy()
+        return copy
 
     def equals(self, initial_first, first):
         for key in first.keys():
