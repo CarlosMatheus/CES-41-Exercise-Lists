@@ -18,8 +18,27 @@ class ProductionTable:
         self.build_table()
         return self.table
 
-    # def print_table(self):
-    #     for
+    def print_table(self):
+        for non_terminal in self.non_terminals:
+
+            str_lt_row = []
+            for atom in self.terminals:
+                key = non_terminal + atom
+                if key in self.table:
+                    prod = self.table[key]
+                    string = self.get_prod_str(prod)
+                else:
+                    string = ''
+                str_lt_row.append(string)
+
+            print_string_row = ''
+            for elm in str_lt_row:
+                print_string_row += '{:^20}|'.format(elm)
+
+            print(print_string_row)
+
+    def get_prod_str(self, prod):
+        return prod[0] + " -> " + ''.join(prod[1])
 
     def build_table(self):
         for prod in self.productions:
@@ -28,8 +47,11 @@ class ProductionTable:
             productions = self.split(product, vertical_bar)
             for production in productions:
                 alpha = production[0]
+                if alpha != epsilon:
+                    first_alpha = self.first[alpha]
+                else:
+                    first_alpha = [epsilon]
                 a = original_elm
-                first_alpha = self.first[alpha]
                 first_a = self.first[a]
                 second_a = self.second[a]
                 for elm_atom in first_alpha:
