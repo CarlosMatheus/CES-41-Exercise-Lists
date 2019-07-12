@@ -1,4 +1,4 @@
-from code import Analyser
+from cod import Analyser
 
 analyser = Analyser()
 analyser.analyse(['id', '+', 'id', '*', 'id', '$'])

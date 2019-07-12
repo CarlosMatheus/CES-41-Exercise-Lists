@@ -3,7 +3,7 @@ from utils import epsilon, vertical_bar
 
 class ProductionTable:
 
-    def __init__(self, terminals: List[str], non_terminals: List[str], productions: List[Tuple[str, list]]):
+    def __init__(self, terminals: "List[str]", non_terminals: "List[str]", productions: "List[Tuple[str, list]]"):
         self.terminals = terminals
         self.non_terminals = non_terminals
         self.productions = productions
@@ -25,18 +25,32 @@ class ProductionTable:
         for prod in self.productions:
             if epsilon in prod[1]:
                 self.first[prod[0]] = [epsilon]
+            else:
+                self.first[prod[0]] = []
 
     def rotary_convergent_process(self):
         while True:
             initial_first = self.copy_first()
             for prod in self.productions:
                 if prod[1]:
-                    if prod[1][0] != epsilon and prod[1][0] != vertical_bar:
-                        for elm in self.first[prod[1][0]]:
-                            if elm not in self.first[prod[0]]:
-                                self.first[prod[0]].append(elm)
+                    sub_prods = self.split(prod[1], vertical_bar)
+                    for sub_prod in sub_prods:
+                        if sub_prod:
+                            if sub_prod[0] != epsilon:
+                                for elm in self.first[sub_prod[0]]:
+                                    if elm not in self.first[prod[0]]:
+                                        self.first[prod[0]].append(elm)
             if self.equals(initial_first, self.first):
                 break
+
+    def split(self, lt: list, elm: any, rec=False):
+        if elm not in lt:
+            if rec: return lt
+            else: return [lt]
+        for idx in range(len(lt)):
+            if lt[idx] == elm:
+                return [lt[:idx]] + [self.split(lt[idx+1:], elm, rec=True)]
+        return [lt]
 
     def __reset_variables(self):
         self.first = dict()
