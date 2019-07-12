@@ -1,0 +1,6 @@
+END_ATOM = '$'
+Expand_action = 'Expandir'
+unstack_action = 'Dempilhar, avançar'
+success_action = 'Encerrar com sucesso'
+epsilon = 'ε'
+vertical_bar = '|'
