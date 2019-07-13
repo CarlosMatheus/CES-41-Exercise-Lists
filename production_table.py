@@ -1,5 +1,8 @@
 from utils import epsilon, vertical_bar, END_ATOM
 
+no = 'Não'
+terminal = 'terminal'
+entry_atom = 'Átomo de entrada'
 
 class ProductionTable:
 
@@ -19,10 +22,15 @@ class ProductionTable:
         return self.table
 
     def print_table(self):
+        len_of_col = 20
+        num_of_col = len(self.terminals + [END_ATOM])
+
+        self.print_table_header(num_of_col, len_of_col)
+
         for non_terminal in self.non_terminals:
 
             str_lt_row = []
-            for atom in self.terminals:
+            for atom in self.terminals + [END_ATOM]:
                 key = non_terminal + atom
                 if key in self.table:
                     prod = self.table[key]
@@ -32,10 +40,45 @@ class ProductionTable:
                 str_lt_row.append(string)
 
             print_string_row = ''
+            print_string_row += ('|{:^%d}|'%len_of_col).format(non_terminal)
+
             for elm in str_lt_row:
-                print_string_row += '{:^20}|'.format(elm)
+                print_string_row += ('{:^%d}|'%len_of_col).format(elm)
 
             print(print_string_row)
+
+        self.print_table_footer(num_of_col, len_of_col)
+
+    def print_table_header(self, num_of_col, len_of_col):
+        self.print_line(num_of_col, len_of_col)
+
+        string = ''
+        string += ('|{:^%d}|'%len_of_col).format('')
+
+        string += ('{:^%d}|'%((len_of_col + 1)*num_of_col - 1)).format(entry_atom)
+
+        print(string)
+        self.print_line(num_of_col, len_of_col)
+
+        string = '|'
+        print_list = [no + ' ' + terminal] + self.terminals + [END_ATOM]
+
+        for elm in print_list:
+            string += ('{:^%d}|' % len_of_col).format(elm)
+
+        print(string)
+
+        self.print_line(num_of_col, len_of_col)
+
+    def print_line(self, num_of_col, len_of_col):
+        string = ''
+        string += '-' * (len_of_col + 2)
+        string += '-' * (num_of_col * (len_of_col + 1))
+
+        print(string)
+
+    def print_table_footer(self, num_of_col, len_of_col):
+        self.print_line(num_of_col, len_of_col)
 
     def get_prod_str(self, prod):
         return prod[0] + " -> " + ''.join(prod[1])
@@ -57,7 +100,7 @@ class ProductionTable:
                 for elm_atom in first_alpha:
                     if elm_atom != epsilon:
                         self.table[a + elm_atom] = (a, production)
-                    if alpha == epsilon:
+                    else:
                         for sec_elm_atom in second_a:
                             self.table[a + sec_elm_atom] = (a, production)
 
