@@ -2,7 +2,6 @@ from production_table import ProductionTable
 from utils import vertical_bar, epsilon
 
 
-# terminals = ['+', '*', '(', ')', 'id']
 terminals = ['id', '+', '*', '(', ')']
 non_terminals = ['E', "E'", 'T', "T'", 'F']
 productions = [

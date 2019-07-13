@@ -38,7 +38,7 @@ class ProductionTable:
         self.print_line(1, 20)
 
     def print_table(self):
-        len_of_col = 20
+        len_of_col = 30
         num_of_col = len(self.terminals + [END_ATOM])
 
         self.print_table_header(num_of_col, len_of_col)
@@ -131,11 +131,13 @@ class ProductionTable:
         self.print_first_second_table(lt)
 
     def print_first_second_table(self, lt):
-        self.print_line(3, 20)
+        len_of_col = 30
 
-        print(self.get_print_row([self.get_prod_str(('A', 'α')), 'Prim(α)', 'Prim(A)', 'Seg(A)'], 20))
+        self.print_line(3, len_of_col)
 
-        self.print_line(3, 20)
+        print(self.get_print_row([self.get_prod_str(('A', 'α')), 'Prim(α)', 'Prim(A)', 'Seg(A)'], len_of_col))
+
+        self.print_line(3, len_of_col)
 
         for row in lt:
             row_lt = []
@@ -144,9 +146,9 @@ class ProductionTable:
                     row_lt.append(' '.join(elm))
                 else:
                     row_lt.append(elm)
-            print(self.get_print_row(row_lt, 20))
+            print(self.get_print_row(row_lt, len_of_col))
 
-        self.print_line(3, 20)
+        self.print_line(3, len_of_col)
 
     def get_print_row(self, row, len_of_col):
         string = '|'
