@@ -21,6 +21,14 @@ class ProductionTable:
         self.build_table()
         return self.table
 
+    def print_first(self):
+        self.print_line(1, 20)
+        print(self.get_print_row(['A', 'Primeiro(A)'], 20))
+        self.print_line(1, 20)
+        for elm in self.first.keys():
+            print(self.get_print_row([elm, ' '.join(self.first[elm])], 20))
+        self.print_line(1, 20)
+
     def print_second(self):
         self.print_line(1, 20)
         print(self.get_print_row(['A', 'Seguinte(A)'], 20))
