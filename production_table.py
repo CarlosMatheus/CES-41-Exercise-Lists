@@ -21,6 +21,14 @@ class ProductionTable:
         self.build_table()
         return self.table
 
+    def print_second(self):
+        self.print_line(1, 20)
+        print(self.get_print_row(['A', 'Seguinte(A)'], 20))
+        self.print_line(1, 20)
+        for terminal in self.second.keys():
+            print(self.get_print_row([terminal, ' '.join(self.second[terminal])], 20))
+        self.print_line(1, 20)
+
     def print_table(self):
         len_of_col = 20
         num_of_col = len(self.terminals + [END_ATOM])
