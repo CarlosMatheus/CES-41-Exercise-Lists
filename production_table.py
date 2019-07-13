@@ -84,11 +84,15 @@ class ProductionTable:
         return prod[0] + " -> " + ''.join(prod[1])
 
     def build_table(self):
+        lt = []
+        idx = 0
         for prod in self.productions:
             product = prod[1]
             original_elm = prod[0]
             productions = self.split(product, vertical_bar)
             for production in productions:
+                lt.append([])
+                lt[idx].append(self.get_prod_str((original_elm, production)))
                 alpha = production[0]
                 if alpha != epsilon:
                     first_alpha = self.first[alpha]
@@ -103,6 +107,36 @@ class ProductionTable:
                     else:
                         for sec_elm_atom in second_a:
                             self.table[a + sec_elm_atom] = (a, production)
+                lt[idx].append(first_alpha)
+                lt[idx].append(first_a)
+                lt[idx].append(second_a)
+                idx += 1
+
+        self.print_first_second_table(lt)
+
+    def print_first_second_table(self, lt):
+        self.print_line(3, 20)
+
+        print(self.get_print_row([self.get_prod_str(('A', 'α')), 'Prim(α)', 'Prim(A)', 'Seg(A)'], 20))
+
+        self.print_line(3, 20)
+
+        for row in lt:
+            row_lt = []
+            for elm in row:
+                if type(elm) == type([]):
+                    row_lt.append(' '.join(elm))
+                else:
+                    row_lt.append(elm)
+            print(self.get_print_row(row_lt, 20))
+
+        self.print_line(3, 20)
+
+    def get_print_row(self, row, len_of_col):
+        string = '|'
+        for elm in row:
+            string += ('{:^%d}|' % len_of_col).format(elm)
+        return string
 
     def get_second(self):
         if not self.first: raise Exception('You need to call get_fist before call get_second')
