@@ -21,11 +21,12 @@ class AnalyserLr:
         self.entry_idx = 0
         self.entry = ''
         self.goto = None
-        self.state = 0
+        self.state = '0'
         self.output = []
         self.actual_value = None
         self.actual_production_idx = None
         self.actual_production = None
+        self.accepted = False
 
     def analyse(self, entry):
 
@@ -37,25 +38,22 @@ class AnalyserLr:
         self.reset_entry(entry)
         self.stack.push(('0', ''))
 
-        while True:
-            print_stack = self.stack.copy()
-            action = self.get_current_action()
-            state = self.state
-            goto = self.goto
+        while not self.accepted:
+            print_stack = self.stack.copy() # (0)
+            print_entry = self.get_cur_entry()
+            action = self.get_current_action() # id
+            state = self.state # 0
+            goto = self.goto # None
 
-            print_action = action
-
-            state, goto = self.get_update_state_and_goto(state, action, goto) # state = 5
-            self.update_action(state, action, goto) #
+            # print(1)
+            # print(goto)
+            state, action, goto, actual_value = self.update(state, action, goto) # s = 5, acti = *, None, d5
 
             self.state = state
-            self.goto = state
+            self.goto = goto
 
-            print_lt.append((print_stack, self.get_cur_entry(), self.get_actual_action_str(), goto))
-
-
-
-        pass
+            print((print_stack, print_entry, self.get_actual_action_str(), goto))
+            print_lt.append((print_stack, print_entry, self.get_actual_action_str(), goto))
 
     def get_actual_action_str(self):
         if self.actual_production:
@@ -65,27 +63,6 @@ class AnalyserLr:
 
     def get_cur_entry(self):
         return self.entry[self.entry_idx:]
-
-    def update_action(self, state, action, goto):
-        if action:
-            key = state+action
-
-            value = self.table[key]
-            self.actual_value = value
-
-            if value == 'act':
-                raise NotImplementedError()
-
-            if value[0] == 'r':
-                self.output.append(self.derivations[int(value[1])])
-                self.increase_idx()
-                self.stack.pop()
-
-            if value[0] == 'd':
-                self.stack.push((self.state, self.action))
-
-        elif goto:
-
 
     def get_elm_from_table(self, state, action):
         key = state+action
@@ -100,52 +77,69 @@ class AnalyserLr:
         self.entry_idx += 1
 
     def get_current_action(self):
-        return self.entry
+        return self.entry[self.entry_idx]
 
-    def get_update_state_and_goto(self, state, action, goto=None):
+    def update(self, state, action, goto=None):
         self.actual_production_idx = None
         self.actual_production = None
 
         if goto is None:
             if action is None:
                 raise Exception('Goto and action none')
-            key = state + action
+            try:
+                key = state + action
+            except:
+                print(1)
             if key not in self.table:
                 raise Exception('Compilation Error: key not in table')
             value = self.table[key]
+            self.actual_value = value
 
             if value == 'act':
-                raise NotImplementedError()
+                # raise NotImplementedError()
+                self.accepted = True
+                return state, action, goto, self.actual_value
 
             elif value[0] == 'd':
                 new_state = value[1:]
 
                 self.increase_idx()
+                action = self.get_current_action()
                 state = new_state
                 goto = goto
-                return state, goto
+                self.stack.push((state, self.actual_value))
+                return state, action, goto, self.actual_value
 
             elif value[0] == 'r':
+                if value == 'r3':
+                    print(1)
                 derivation_first_part = self.get_derivation_first_part(value[1:])
 
                 self.actual_production_idx = value[1:]
-                self.actual_production = self.derivations[value[1:]]
+                self.actual_production = self.derivations[int(value[1:])]
 
-                state = state
                 goto = derivation_first_part
-                return state, goto
+
+                self.stack.pop()
+                state = self.stack.top()[0]
+                return state, action, goto, self.actual_value
         else:
             key = state + goto
 
-            if key not in self.table:
-                raise Exception('Compilation Error: key not in table')
+            while key not in self.table:
+                self.stack.pop()
+                state = self.stack.top()[0]
+                key = state + goto
 
             value = self.table[key]
+
+            self.actual_value = value
             new_state = value
 
             state = new_state
+            self.stack.push((state, goto))
             goto = None
-            return state, goto
+            return state, action, goto, self.actual_value
 
     def get_derivation_first_part(self, number_str):
         return self.derivations[int(number_str)][0]
@@ -158,8 +152,8 @@ class AnalyserLr:
         self.derivations.append(('E', ['T']))
         self.derivations.append(('T', ['T', '*', 'F']))
         self.derivations.append(('T', ['F']))
-        self.derivations.append(('T', ['(', 'E', ')']))
-        self.derivations.append(('T', ['id']))
+        self.derivations.append(('F', ['(', 'E', ')']))
+        self.derivations.append(('F', ['id']))
 
     def create_table(self):
         self.table = dict()
