@@ -1,11 +1,13 @@
-\documentclass[a4paper, 9pt]{article}
+\documentclass[a4paper, 10pt]{article}
 \usepackage[english,brazil]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{fullpage}
+\usepackage{float}
 
-\usepackage{multicol}
+% \usepackage{multicol}
+\usepackage{graphicx}
 \usepackage{listings}
-\setlength{\columnsep}{30pt}
+% \setlength{\columnsep}{30pt}
 % I want the columnsep to be wider only on this page. Right now, nothing happens. The default 10pt is still being used.
 
 \lstdefinestyle{cppStyle}{
@@ -22,19 +24,19 @@
   tabsize=2
 }
 
-\lstdefinestyle{es}{
-  basicstyle=\footnotesize,
-  breakatwhitespace=false,
-  breaklines=true,
-  captionpos=b,
-  keepspaces=true,
-  numbers=left,
-  numbersep=5pt,
-  showspaces=false,
-  showstringspaces=false,
-  showtabs=false,
-  tabsize=2
-}
+% \lstdefinestyle{es}{
+%   basicstyle=\footnotesize,
+%   breakatwhitespace=false,
+%   breaklines=true,
+%   captionpos=b,
+%   keepspaces=true,
+%   numbers=left,
+%   numbersep=5pt,
+%   showspaces=false,
+%   showstringspaces=false,
+%   showtabs=false,
+%   tabsize=2
+% }
 
 \renewcommand*{\lstlistingname}{Código}
 
@@ -44,55 +46,68 @@
 \begin{document}
 
 \noindent
-\large\textbf{Compiladores} \\
-\textbf{Série 1} \\
+\large
+\textbf{Compiladores} \\
+\textbf{Série 2} \\
 \normalsize CES-41  \\
 Professor: Fábio Carneiro Mokarzel \\
-Aluno: Carlos Matheus Barros da Silva \hfill 14/07/2019 \\ \\
+Aluno: Carlos Matheus Barros da Silva \hfill Julho de 2019 \\ \\
 
 
 %-------------------------------------------------------------------------------
 
-\section*{Série 1}
+\section*{Exercício 1}
 
+O Exercicio foi resolvido com sucesso. De acordo com a gramática Seção 5.5.3 do Capítulo V dos Slides Teóricos de CES-41 e as tabelas de ações e de transições do analisador LR, no mesmo exemplo foi desenvolvido um código em Python que constroi a tabela de execução para uma data sentença.
 
-% O Lab 3 foi resolvido com sucesso. Seu código pode ser conferido no Código \ref{code:lex} e Código \ref{code:syn}. Seu funcionamento pode ser observado pela saída representada pelo Código \ref{code:saida} que é referente a entrada representada no Código \ref{code:entrada}.
+Portando, dado a sentença $id * ((id + id) * ((id + id) * id)) \$$, a sua tabela de execução pode ser vista na tabela representada pela Figura \ref{fig:tabela}.
 
-\lstinputlisting[
-language=C++,
-caption={Código do analisador léxico do Lab 3},
-label={code:lex},
-style=cppStyle]
-{
-./../code/MinGW/bin/tsimb012019.l
-}
+\begin{figure}[H]
+  \begin{center}
+  \includegraphics[width=\linewidth]{./../tabela.png}
+  \caption{Tabela de execução para entrada $id * ((id + id) * ((id + id) * id)) \$$}
+  \label{fig:tabela}
+  \end{center}
+\end{figure}
 
-\lstinputlisting[
-language=C++,
-caption={Código do analisador sintático do Lab 3},
-label={code:syn},
-style=cppStyle]
-{
-./../code/MinGW/bin/tsimb012019.y
-}
+\section*{Exercício 2}
 
-\lstinputlisting[
-language=C++,
-caption={Entrada to Lab 3},
-label={code:entrada},
-style=cppStyle]
-{
-./../code/MinGW/bin/tsimb012019.dat
-}
+O Exercicio foi resolvido com sucesso. Para as produções da gramática:
+\begin{center}
+    $E  \to  E + T | T$ \\
+    $T  \to  T * F | F$ \\
+    $F  \to  P @ F | P$ \\
+    $P  \to  ( E ) | a | a ( L )$ \\
+    $L  \to  L , E | E$ \\
+\end{center}
+Seus automatos podem ser verificados nas imagens representadas pela Figura \ref{fig:naodeterministico} e pela Figura \ref{fig:deterministico}.
 
-\lstinputlisting[
-language=C++,
-caption={Saída to Lab 3},
-label={code:saida},
-style=cppStyle]
-{
-./../code/MinGW/bin/output
-}
+\section*{Exercício 3}
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=\linewidth]{./../nao_deterministico.png}
+  \caption{Automato Finito Não Determinístico}
+  \label{fig:naodeterministico}
+  \end{center}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+  \includegraphics[width=\linewidth]{./../deterministico.png}
+  \caption{Automato Finito Determinístico}
+  \label{fig:deterministico}
+  \end{center}
+\end{figure}
+
+% \tiny
+% \UseRawInputEncoding
+% \lstinputlisting[
+%     language=c,
+%     caption={Interior da função \textit{Gradient Descent}.},
+%     label={code:gradient_descent},
+%     style=cppStyle,
+% ]{./../list2_question1_answer.txt}
 
 %-------------------------------------------------------------------------------
 
