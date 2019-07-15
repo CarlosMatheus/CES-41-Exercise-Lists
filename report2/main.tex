@@ -48,7 +48,7 @@
 \noindent
 \large
 \textbf{Compiladores} \\
-\textbf{Série 2} \\
+\textbf{2ª Série de Exercícios} \\
 \normalsize CES-41  \\
 Professor: Fábio Carneiro Mokarzel \\
 Aluno: Carlos Matheus Barros da Silva \hfill Julho de 2019 \\ \\
@@ -84,7 +84,17 @@ Seus automatos podem ser verificados nas imagens representadas pela Figura \ref{
 
 \section*{Exercício 3}
 
-\begin{figure}
+O Exercicio foi resolvido com sucesso. O código intermediário pode ser visto no Código \ref{code:intermediario}
+
+\lstinputlisting[
+    language=c,
+    caption={Código intermediário livre de quádruplas de operadores NOP e de operadores de atribuição desnecessários},
+    label={code:intermediario},
+    style=cppStyle,
+    numbers=none,
+]{./../list2_question3_answer.txt}
+
+\begin{figure}[H]
   \begin{center}
   \includegraphics[width=\linewidth]{./../nao_deterministico.png}
   \caption{Automato Finito Não Determinístico}
@@ -92,22 +102,13 @@ Seus automatos podem ser verificados nas imagens representadas pela Figura \ref{
   \end{center}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
   \begin{center}
   \includegraphics[width=\linewidth]{./../deterministico.png}
   \caption{Automato Finito Determinístico}
   \label{fig:deterministico}
   \end{center}
 \end{figure}
-
-% \tiny
-% \UseRawInputEncoding
-% \lstinputlisting[
-%     language=c,
-%     caption={Interior da função \textit{Gradient Descent}.},
-%     label={code:gradient_descent},
-%     style=cppStyle,
-% ]{./../list2_question1_answer.txt}
 
 %-------------------------------------------------------------------------------
 

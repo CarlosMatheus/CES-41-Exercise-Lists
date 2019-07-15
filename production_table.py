@@ -160,9 +160,7 @@ class ProductionTable:
         if not self.first: raise Exception('You need to call get_fist before call get_second')
         self.trivial_initialization_second()
         self.non_trivial_initialization_second()
-        print(self.second)
         self.rotary_convergent_process_second()
-        print(self.second)
         return self.second
 
     def trivial_initialization_second(self):
@@ -188,11 +186,8 @@ class ProductionTable:
                                 self.second[elm].append(first)
 
     def rotary_convergent_process_second(self):
-        i = 0
         while True:
             initial_second = self.copy_first_or_second(self.second)
-            # print(initial_second)
-            # print(1)
             for prod in self.productions:
                 origin_elm = prod[0]
                 product = prod[1]
@@ -205,12 +200,8 @@ class ProductionTable:
                                 if elm in self.non_terminals:
                                     for next in self.second[origin_elm]:
                                         if next not in self.second[elm]:
-                                            print(1)
                                             self.second[elm].append(next)
-            # print(initial_second)
-            # print(self.second)
-            i+=1
-            if i>1000:
+            if self.equals(initial_second, self.second):
                 break
 
     def get_first(self):

@@ -126,16 +126,16 @@ class Analyser:
             prod = production + ' -> ' + ''.join(next_productions)
         else:
             prod = ''
-        string = '|{:50}|{:50}|{:30}|{:20}|'.format(' '.join(stack), ' '.join(entry), action, prod)
+        string = '|{:40}|{:50}|{:20}|{:13}|'.format(' '.join(stack), ' '.join(entry), action, prod)
         print(string)
 
     def __print_success_finish(self):
         action = success_action
-        string = '|{:50}|{:50}|{:30}|{:20}|'.format('', '', action, '')
+        string = '|{:40}|{:50}|{:20}|{:13}|'.format('', '', action, '')
         print(string)
-        print('|{:50}|{:50}|{:30}|{:20}|'.format('-' * 50, '-' * 50, '-' * 30, '-' * 20))
+        print('|{:40}|{:50}|{:20}|{:13}|'.format('-' * 40, '-' * 50, '-' * 20, '-' * 13))
 
     def __print_title(self):
-        print('|{:50}|{:50}|{:30}|{:20}|'.format('-'*50, '-'*50, '-'*30, '-'*20))
-        print('|{:^50}|{:^50}|{:^30}|{:^20}|'.format('Pilha', 'Entrada', 'Ação', 'Produção'))
-        print('|{:50}|{:50}|{:30}|{:20}|'.format('-'*50, '-'*50, '-'*30, '-'*20))
+        print('|{:40}|{:50}|{:20}|{:13}|'.format('-'*40, '-'*50, '-'*20, '-'*13))
+        print('|{:^40}|{:^50}|{:^20}|{:^13}|'.format('Pilha', 'Entrada', 'Ação', 'Produção'))
+        print('|{:40}|{:50}|{:20}|{:13}|'.format('-'*40, '-'*50, '-'*20, '-'*13))
