@@ -52,8 +52,43 @@ class AnalyserLr:
             self.state = state
             self.goto = goto
 
-            print((print_stack, print_entry, self.get_actual_action_str(), goto))
-            print_lt.append((print_stack, print_entry, self.get_actual_action_str(), goto))
+            # print((print_stack, print_entry, self.get_actual_action_str(), self.get_printable_got(goto)))
+            print_lt.append((print_stack, print_entry, self.get_actual_action_str(), self.get_printable_goto(goto)))
+
+        self.print_table(print_lt)
+
+    def print_table(self, print_lt):
+        len_of_col = [85, 46, 15, 17]
+        should_print = True
+        for row in print_lt:
+            if should_print:
+                stack, entry, action_str, goto = row
+                stk = '$ '
+                for elm in stack:
+                    if not elm[1]:
+                        stk += elm[0] + ' '
+                    else:
+                        stk += '(%s, %s)' % (elm[0], elm[1])
+                stack = stk
+
+                entry = ' '.join(entry)
+
+                if goto:
+                    should_print = False
+                print(('| {:%d}| {:%d}| {:%d}| {:%d}|' % (len_of_col[0], len_of_col[1], len_of_col[2], len_of_col[3])).format(stack, entry, action_str, goto))
+            else:
+                should_print = True
+
+    def get_printable_goto(self, goto):
+        if goto:
+            # todo fix
+            try:
+                elm = self.get_elm_from_table(self.state, goto)
+            except:
+                elm = 2
+            return 'Goto (%s, %s) = %s' % (self.state, goto, elm)
+        else:
+            return ''
 
     def get_actual_action_str(self):
         if self.actual_production:
@@ -92,11 +127,12 @@ class AnalyserLr:
                 print(1)
             if key not in self.table:
                 raise Exception('Compilation Error: key not in table')
+            #     value = 'act'
+            # else:
             value = self.table[key]
             self.actual_value = value
 
             if value == 'act':
-                # raise NotImplementedError()
                 self.accepted = True
                 return state, action, goto, self.actual_value
 
@@ -111,8 +147,6 @@ class AnalyserLr:
                 return state, action, goto, self.actual_value
 
             elif value[0] == 'r':
-                if value == 'r3':
-                    print(1)
                 derivation_first_part = self.get_derivation_first_part(value[1:])
 
                 self.actual_production_idx = value[1:]
@@ -120,16 +154,19 @@ class AnalyserLr:
 
                 goto = derivation_first_part
 
-                self.stack.pop()
+                for i in range(len(self.actual_production[1])):
+                    self.stack.pop()
+
                 state = self.stack.top()[0]
                 return state, action, goto, self.actual_value
         else:
             key = state + goto
 
-            while key not in self.table:
-                self.stack.pop()
-                state = self.stack.top()[0]
-                key = state + goto
+            if key not in self.table:
+                raise Exception('Compilation Error: key not in table')
+                # self.stack.pop()
+                # state = self.stack.top()[0]
+                # key = state + goto
 
             value = self.table[key]
 

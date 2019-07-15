@@ -1,0 +1,99 @@
+\documentclass[a4paper, 9pt]{article}
+\usepackage[english,brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fullpage}
+
+\usepackage{multicol}
+\usepackage{listings}
+\setlength{\columnsep}{30pt}
+% I want the columnsep to be wider only on this page. Right now, nothing happens. The default 10pt is still being used.
+
+\lstdefinestyle{cppStyle}{
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
+}
+
+\lstdefinestyle{es}{
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  keepspaces=true,
+  numbers=left,
+  numbersep=5pt,
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  tabsize=2
+}
+
+\renewcommand*{\lstlistingname}{Código}
+
+\newcounter{codeNum}
+\setcounter{codeNum}{0}
+
+\begin{document}
+
+\noindent
+\large\textbf{Compiladores} \\
+\textbf{Série 1} \\
+\normalsize CES-41  \\
+Professor: Fábio Carneiro Mokarzel \\
+Aluno: Carlos Matheus Barros da Silva \hfill 14/07/2019 \\ \\
+
+
+%-------------------------------------------------------------------------------
+
+\section*{Série 1}
+
+
+% O Lab 3 foi resolvido com sucesso. Seu código pode ser conferido no Código \ref{code:lex} e Código \ref{code:syn}. Seu funcionamento pode ser observado pela saída representada pelo Código \ref{code:saida} que é referente a entrada representada no Código \ref{code:entrada}.
+
+\lstinputlisting[
+language=C++,
+caption={Código do analisador léxico do Lab 3},
+label={code:lex},
+style=cppStyle]
+{
+./../code/MinGW/bin/tsimb012019.l
+}
+
+\lstinputlisting[
+language=C++,
+caption={Código do analisador sintático do Lab 3},
+label={code:syn},
+style=cppStyle]
+{
+./../code/MinGW/bin/tsimb012019.y
+}
+
+\lstinputlisting[
+language=C++,
+caption={Entrada to Lab 3},
+label={code:entrada},
+style=cppStyle]
+{
+./../code/MinGW/bin/tsimb012019.dat
+}
+
+\lstinputlisting[
+language=C++,
+caption={Saída to Lab 3},
+label={code:saida},
+style=cppStyle]
+{
+./../code/MinGW/bin/output
+}
+
+%-------------------------------------------------------------------------------
+
+\end{document}
