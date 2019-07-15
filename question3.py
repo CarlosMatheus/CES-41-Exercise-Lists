@@ -15,11 +15,11 @@ productions = [
     ('CmdComp', ['{', 'ListCmd', '}']),
     ('ListCmd', ['Comando', 'LCaux']),
     ('LCaux', [epsilon, vertical_bar, 'ListCmd']),
-    ('Comando', ['CmdComp', 'CmdAtrib']),
+    ('Comando', ['CmdComp', vertical_bar, 'CmdAtrib']),
     ('CmdAtrib', ['ID', '=', 'Expressao', ';']),
     ('Expressao', ['Termo', 'Eaux']),
     ('Eaux', [epsilon, vertical_bar, '+', 'Expressao']),
-    ('Termo', ['(', 'Expressao', ')', vertical_bar, 'ID', 'CTE']),
+    ('Termo', ['(', 'Expressao', ')', vertical_bar, 'ID', vertical_bar, 'CTE']),
 ]
 
 production_table = ProductionTable(terminals, non_terminals, productions)
