@@ -234,13 +234,12 @@ class ProductionTable:
             if self.equals(initial_first, self.first):
                 break
 
-    def split(self, lt: list, elm: any, rec=False):
+    def split(self, lt: list, elm: any):
         if elm not in lt:
-            if rec: return lt
-            else: return [lt]
+            return [lt]
         for idx in range(len(lt)):
             if lt[idx] == elm:
-                return [lt[:idx]] + [self.split(lt[idx+1:], elm, rec=True)]
+                return [lt[:idx]] + self.split(lt[idx+1:], elm)
         return [lt]
 
     def __reset_variables(self):
