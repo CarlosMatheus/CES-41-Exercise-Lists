@@ -1,9 +1,9 @@
 # Fdb version 3
-["pdflatex"] 1563185447 "main.tex" "main.pdf" "main" 1563185451
-  "../deterministico.png" 1563183991 401897 7d225dff9790c2dd49bb453a4eb1192e ""
+["pdflatex"] 1563192373 "main.tex" "main.pdf" "main" 1563192382
   "../list2_question3_answer.txt" 1563177589 4165 182363115a60eaf201fc14612ea3dd0f ""
-  "../nao_deterministico.png" 1563183284 383676 543a2e47ee19731924140d967fd3c8b1 ""
-  "../tabela.png" 1563179987 570540 99a79125f8af23f3e43f9db39f0ed0e5 ""
+  "../output/deterministico.png" 1563183991 401897 7d225dff9790c2dd49bb453a4eb1192e ""
+  "../output/nao_deterministico.png" 1563183284 383676 543a2e47ee19731924140d967fd3c8b1 ""
+  "../output/tabela.png" 1563179987 570540 99a79125f8af23f3e43f9db39f0ed0e5 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/map/fontname/texfonts.map" 1511824771 3332 103109f5612ad95229751940c61aada0 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1480098701 1324 c910af8c371558dc20f2d7822f66fe64 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmbx8.tfm" 1480098701 1332 1fde11373e221473104d6cc5993f046e ""
@@ -16,6 +16,7 @@
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm" 1480098701 1124 6c73e740cf17375f03eec0ee63599741 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm" 1480098701 1116 933a60c408fc0a863a92debe84b2d294 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm" 1480098701 1120 8b7d695260f3cff42e636090a8002094 ""
+  "/usr/local/texlive/2018/texmf-dist/fonts/tfm/public/cm/cmti10.tfm" 1480098701 1480 aa8e34af0eb6a2941b776984cf1dfdc4 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1480098733 32080 340ef9bf63678554ee606688e7b5339d ""
   "/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb" 1480098733 32166 b0c356b15f19587482a9217ce1d8fa67 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb" 1480098733 36299 5f9df58c2139e7edcf37c8fca4bd384d ""
@@ -23,6 +24,7 @@
   "/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb" 1480098733 32726 0a1aea6fcd6468ee2cf64d891f5c43c8 ""
   "/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1480098733 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb" 1480098733 32626 4f5c1b83753b1dd3a97d1b399a005b4b ""
+  "/usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb" 1480098733 37944 359e864bd06cde3b1cf57bb20757fb06 ""
   "/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii" 1480098806 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2018/texmf-dist/tex/generic/babel-english/english.ldf" 1496785618 7008 9ff5fdcc865b01beca2b0fe4a46231d4 ""
   "/usr/local/texlive/2018/texmf-dist/tex/generic/babel-portuges/portuges.ldf" 1480098812 6605 2bd2937f1ce929b4a1367cc2d320364e ""
@@ -62,9 +64,9 @@
   "/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1523934492 2717033 f61a5287d9c22a39a74f1979fe3f905c ""
   "/usr/local/texlive/2018/texmf-var/web2c/pdftex/pdflatex.fmt" 1523934516 4220280 10cab8fbd7c5a7c52aba9917e190d018 ""
   "/usr/local/texlive/2018/texmf.cnf" 1523934483 577 0b39adfd7c93507ff20c9c14c2f1a33f ""
-  "main.aux" 1563185451 836 76a175fa615e8f496a01c5476238aa17 ""
-  "main.tex" 1563185443 3440 d9cfe68763ac2148b5917cfdbcfc3372 ""
+  "main.aux" 1563192381 836 76a175fa615e8f496a01c5476238aa17 ""
+  "main.tex" 1563192373 3596 bee936752018c5064b0b62dd8f2d64c9 ""
   (generated)
-  "main.pdf"
-  "main.aux"
   "main.log"
+  "main.aux"
+  "main.pdf"
